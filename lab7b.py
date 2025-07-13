@@ -4,7 +4,7 @@ class Time:
     """Simple object type for time of the day.
     data attributes: hour, minute, second
     """
-    def __init__(self,hour=12,minute=0,second=0):
+    def __init__(self,hour,minute,second):
         """constructor for time object""" 
         self.hour = hour
         self.minute = minute
@@ -28,6 +28,23 @@ def sum_times(t1, t2):
         sum.minute = sum.minute - 60 # minus 60 minute for 1 hour
         sum.hour = sum.hour + 1 # increase 1 hour
     return sum
+
+def change_time(time, seconds):
+    time.second += seconds
+    if valid_time(time) != True:
+        while time.second >= 60:
+             time.second -= 60
+             time.minute +=1
+        while time.minute >= 60:
+             time.minute -= 60
+             time.hour += 1
+        while time.second < 0: # While the second < 0
+            time.second += 60 # add back 60 seconds for it
+            time.minute -=1 # but minus 1 in minute
+        while time.minute < 0: # while the minute < 0
+            time.minute += 60 # add back 60 minutes for it
+            time.hour -=1 # but minus 1 in hour
+    return None
 
 def valid_time(t):
     """check for the validity of the time object attributes:
